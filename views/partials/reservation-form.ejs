@@ -1,0 +1,52 @@
+<div id="reservation-form">
+  <form onsubmit="handleReservation(event)">
+    <div>
+      <label for="name">Your Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Enter your name"
+        required
+      />
+    </div>
+    <div class="date-container">
+      <div class="date-field">
+        <label for="startDate">Start Date:</label>
+        <input
+          type="date"
+          placeholder="When you want to collect it"
+          id="startDate"
+          name="startDate"
+          required
+        />
+      </div>
+      <div class="date-field">
+        <label for="endDate">End Date:</label>
+        <input
+          type="date"
+          placeholder="Return Date"
+          id="endDate"
+          name="endDate"
+          required
+        />
+      </div>
+    </div>
+
+    <input
+      type="hidden"
+      id="equipmentId"
+      placeholder="When you're done"
+      name="equipmentId"
+      value="<%= equipmentId %>"
+    />
+    <div>
+      <h3>Reserving:</h3>
+      <h4><%= equipmentName %></h4>
+    </div>
+    <button type="submit" class="submit-button">Submit Reservation</button>
+    <button type="button" onclick="closeReservation()" class="cancel-button">
+      Cancel
+    </button>
+  </form>
+</div>

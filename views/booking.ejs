@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('partials/head'); %>
+  </head>
+  <body>
+    <div class="page-wrap">
+      <header class="page-header"><%- include('partials/header'); %></header>
+      <nav class="page-nav">
+        <details id="nav-details">
+          <summary>Menu</summary>
+          <ul>
+            <% for (let i = 0; i < nav.length; i++) { %>
+            <li><a href="<%= nav[i].link %>"><%= nav[i].title %></a></li>
+            <% } %>
+          </ul>
+        </details>
+      </nav>
+
+      <main class="page-main">
+        <article>
+          <h2>Available Equipment</h2>
+          <div id="equipment-container">
+            <!-- Front and Back content -->
+          </div>
+          <!-- load area of equipment cards -->
+        </article>
+      </main>
+      <footer class="page-footer"><%- include('partials/footer'); %></footer>
+    </div>
+    <!-- Reservation Form Section (Hidden until called) -->
+    <div id="reservation-form-section"></div>
+
+    <script src="/js/menu.js"></script>
+    <script src="/js/toggle-theme.js"></script>
+    <script src="/js/fetchEquipment.js"></script>
+    <script src="/js/fetchReservations.js"></script>
+    <script src="/js/sw.js"></script>
+  </body>
+</html>

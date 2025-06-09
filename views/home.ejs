@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Link to head partial -->
+    <%- include('partials/head'); %>
+  </head>
+  <body>
+    <div class="page-wrap">
+      <!-- Link to header partial -->
+      <header class="page-header"><%- include('partials/header'); %></header>
+
+      <nav class="page-nav">
+        <details id="nav-details">
+          <summary>Menu</summary>
+          <ul>
+            <% for (let i = 0; i < nav.length; i++) { %>
+            <li><a href="<%= nav[i].link %>"><%= nav[i].title %></a></li>
+            <% } %>
+          </ul>
+        </details>
+      </nav>
+
+      <main class="page-main">
+        <!-- Link to carousel partial -->
+        <article><%- include('partials/carousel'); %></article>
+      </main>
+      <!-- Link to footer partial -->
+      <footer class="page-footer"><%- include('partials/footer'); %></footer>
+    </div>
+
+    <script src="/js/menu.js"></script>
+    <script src="/js/toggle-theme.js"></script>
+    <script src="/js/fetchEquipment.js"></script>
+    <script src="/js/fetchReservations.js"></script>
+    <script src="/js/sw.js"></script>
+  </body>
+</html>
