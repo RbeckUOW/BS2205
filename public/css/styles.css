@@ -1,0 +1,708 @@
+:root {
+  /* Font settings */
+  --body-font-family: Lora, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+    Segoe UI Symbol, Noto Color Emoji;
+  --body-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --body-font-size: 1rem;
+  --body-font-weight: 300;
+  --body-line-height: 1.5;
+}
+
+/* Smooth scrolling for motion */
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Body Styling and Colours */
+body {
+  height: 100vh;
+  margin: 0;
+  color: var(--body-color);
+  background-color: var(--body-bg);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
+  font-weight: var(--body-font-weight);
+  line-height: var(--body-line-height);
+  text-transform: uppercase;
+}
+body.light-mode {
+  --header-bg: #cce0ff; /* 15.67 header contrast ratio */
+  --body-bg: #d4a8ff; /*10.84 body contrast ratio*/
+  --nav-bg: #fff9d1; /* 15.29 nav contrast ratio */
+  --sidebar-bg: #ffd1d1; /* 15.29 body contrast ratio */
+  --footer-bg: #adffe0; /* 18.15 footer contrast ratio */
+  --input-bg: #e6e9ff; /* 17.46 text box contrast ratio */
+  --page-wrap: #c6c6c6;
+  --font-color: #000;
+  --header-text-colour: #fff;
+}
+body.dark-mode {
+  --header-bg: #15202b; /* 13.27 header contrast ratio */
+  --body-bg: #192734; /* 16.16 body contrast ratio */
+  --nav-bg: #22303c; /* 9.58 navbar contrast ratio */
+  --sidebar-bg: #8899ac; /* 14.26 sidebar contrast ratio */
+  --footer-bg: #1a374d; /* 9.31 footer contrast ratio */
+  --input-bg: #2c3e50; /* 7.58 text box contrast ratio */
+  --page-wrap: #1c2833; /* 9.15 contrast ratio */
+  --font-color: #fff;
+  --header-text-colour: #fff;
+}
+/* Button styling */
+.submit-button,
+.cancel-button,
+.reserve-button,
+.move-to-booking,
+.body-oops-button {
+  text-decoration: none;
+  color: var(--font-color);
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+  width: 60%;
+  padding: 10px;
+  background-color: var(--sidebar-bg);
+  color: var(--font-color);
+  border: 2px solid var(--nav-bg);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.submit-button:hover,
+.cancel-button:hover,
+.reserve-button:hover,
+.move-to-booking:hover,
+.body-oops-button:hover {
+  background-color: var(--nav-bg);
+  transition: background-color 0.3s;
+  color: var(--font-color);
+  border: 2px solid var(--sidebar-bg);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Theme button */
+#theme-toggle-button {
+  position: fixed;
+  height: fit-content;
+  top: 15px;
+  right: 15px;
+  z-index: 1011;
+  padding: 0.5rem 1rem;
+  background-color: var(--sidebar-bg);
+  color: var(--font-color);
+  border: 2px solid var(--nav-bg);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#theme-toggle-button:hover {
+  background-color: var(--nav-bg);
+  transition: background-color 0.3s;
+  color: var(--font-color);
+  border: 2px solid var(--sidebar-bg);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Page wrap layout */
+.page-wrap {
+  background: var(--page-wrap);
+  height: 100%;
+  display: grid;
+  grid-template-rows: min-content min-content 1fr min-content;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  z-index: auto;
+
+  > * {
+    padding: 1rem;
+    text-align: center;
+  }
+}
+
+/* Header */
+.page-header {
+  grid-row: 1;
+  background: var(--header-bg);
+  color: var(--font-color);
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+  position: fixed 0, 0, 0, 0;
+}
+.page-header h1 {
+  width: 100%;
+  text-decoration: none;
+  font-family: var(--body-font-family);
+  color: var(--header-text-color);
+  letter-spacing: 4px;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+}
+
+/* Logo image and spinning gradient animation */
+.logo {
+  position: relative;
+  height: 5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: top;
+  border-radius: inherit;
+}
+.logo::before,
+.logo::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  inset: -5px;
+  border-radius: inherit;
+  background-image: conic-gradient(#00dbde 25%, #fc00ff 50%, #fffb00, #00dbde);
+  animation: rotate 3s linear infinite;
+}
+.logo::after {
+  filter: blur(2rem);
+  opacity: 0.7;
+}
+.logo:hover::before,
+.logo:hover::after {
+  animation-play-state: paused;
+}
+@keyframes rotate {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* Header image */
+.masthead {
+  background-image: url("../images/bannerimage.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--header-text-colour);
+  position: relative;
+  padding: 0 1rem;
+  margin: 0;
+  z-index: 2;
+}
+/* Display banner if no network connection */
+#offline-banner {
+  display: none;
+  background-color: var(--sidebar-bg);
+  color: var(--font-color);
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+}
+
+/* Navigation bar */
+.page-nav {
+  grid-row: 2;
+  background: var(--nav-bg);
+  color: var(--font-color);
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  z-index: 1;
+}
+.page-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Vertical layout */
+  justify-content: flex-start; /* Align to top */
+  width: 100%;
+}
+.page-nav ul li {
+  padding: 10px 0; /* Spacing between items */
+}
+.page-nav ul li a {
+  color: var(--font-color);
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  font-weight: 450;
+}
+nav ul li a:hover {
+  background: var(--sidebar-bg);
+  font-weight: 450;
+}
+.page-nav details {
+  /* Nav bar */
+  background: var(--nav-bg);
+  color: var(--font-color);
+  padding: 10px;
+}
+.page-nav details[open] summary {
+  display: none;
+}
+.page-nav summary {
+  cursor: pointer;
+  padding: 10px;
+  background-color: var(--nav-bg);
+  color: var(--font-color);
+}
+.page-main {
+  grid-row: 3;
+  background: var(--body-bg);
+  color: var(--font-color);
+  z-index: 1;
+  overflow: auto;
+  padding: 1rem;
+  flex-grow: 1;
+}
+.page-main iframe {
+  width: 100%;
+  max-width: 600px;
+  height: 450px;
+  border: none;
+  margin: auto;
+  display: block;
+}
+.page-main article p {
+  text-transform: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Scrolling image box on home screen */
+.wrapper {
+  background-color: var(--sidebar-bg);
+  height: 525px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  box-sizing: border-box;
+}
+.wrapper::before,
+.wrapper::after {
+  content: "";
+  position: absolute;
+  height: 550px;
+  width: 700px;
+}
+.wrapper::after {
+  right: 0;
+  top: 0;
+  transform: rotateZ(180deg);
+}
+.wrapper::before {
+  left: 0;
+  top: 0;
+}
+.wrapper .track {
+  display: flex;
+  width: calc(700px * 6);
+  animation: scroll 15s 0.5s linear infinite;
+  animation-direction: alternate;
+  gap: 0;
+}
+.wrapper .carousel {
+  width: 700px;
+}
+.wrapper .carousel img {
+  height: 500px;
+}
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-700px * 6 + 100vw));
+  }
+}
+
+/* 404 page */
+.body-oops-404 {
+  background-color: var(--sidebar-bg);
+  height: 50vh;
+  width: 60%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  margin: 10px auto;
+  border: 2px solid var(--sidebar-bg);
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+/* Image styling */
+.body-oops-404 img {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: block;
+  background-repeat: no-repeat;
+  border: 2px solid var(--nav-bg);
+  border-radius: 15px;
+  object-fit: contain;
+}
+/* Footer */
+.page-footer {
+  grid-row: 4;
+  background: var(--footer-bg);
+  color: var(--font-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
+  font-weight: var(--body-font-weight);
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+.page-footer-icon-group {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.page-footer-icon img {
+  max-width: 2rem;
+  max-height: 2rem;
+  display: block;
+  cursor: pointer;
+}
+.page-footer-p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-align: right;
+}
+/* Reservation Form */
+#reservation-form-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  background-color: var(--sidebar-bg);
+  color: var(--font-color);
+  border: 2px solid var(--nav-bg);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 90%;
+}
+#reservation-form-container h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--font-color);
+  margin-bottom: 15px;
+  text-align: center;
+}
+#reservation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 1.5rem;
+}
+/* Label styling */
+#reservation-form label {
+  font-weight: 600;
+  color: var(--font-color);
+}
+/* Input boxes styling */
+#reservation-form input[type="text"] {
+  width: 100%;
+  height: 50px;
+  padding: 8px;
+  border: 1px solid var(--sidebar-bg);
+  border-radius: 4px;
+  background-color: var(--input-bg);
+  color: var(--font-color);
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.date-container {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+.date-field {
+  position: relative;
+  flex: 1;
+  width: 48%;
+  display: inline-block;
+}
+.date-field label {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+/* Custom styling for the Flatpickr calendar */
+.flatpickr-calendar {
+  position: absolute !important;
+  left: 25% !important;
+  transform: translateY(-100%) !important;
+  z-index: 9999;
+}
+.flatpickr-calendar {
+  max-width: 100% !important;
+}
+#reservation-form input[type="date"] {
+  width: 100%;
+  height: 50px;
+  padding: 8px;
+  border: 1px solid var(--sidebar-bg);
+  border-radius: 4px;
+  background-color: var(--sidebar-bg);
+  color: var(--font-color);
+  font-size: 1.5rem;
+}
+
+/* Product cards for the equipment */
+#equipment-container,
+#reservation-container {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
+  max-width: 100%;
+  color: var(--font-color);
+  filter: blur(0.2em);
+  animation: removeBlur 0.5s ease-in-out forwards; /* Apply animation */
+}
+
+/* Keyframes for removing blur */
+@keyframes removeBlur {
+  0% {
+    filter: blur(0.2em);
+  }
+  100% {
+    filter: blur(0);
+  }
+}
+
+/* Outer container with perspective */
+.equipment-card,
+.reservation-card {
+  width: 300px;
+  max-width: 90%;
+  background: var(--nav-bg);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  perspective: 1000px; /* Enable 3D perspective for flipping */
+}
+
+/* Inner container for flipping effect */
+.equipment-card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transform-origin: center;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Front face of the card */
+.equipment-card-front,
+.reservation-card {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden; /* For Safari */
+}
+
+/* Back face of the card */
+.equipment-card-back,
+.reservation-card-back {
+  background: var(--nav-bg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+/* Trigger flip on hover */
+.equipment-card:hover .equipment-card-inner {
+  transform: rotateY(180deg);
+  transition-duration: 0.5s;
+}
+
+/* Image styles */
+.equipment-card img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  display: block;
+  filter: blur(0.2em);
+  animation: removeBlur 1s ease-in-out forwards;
+}
+
+/* Remove blur when image is loaded */
+.equipment-card img.loaded {
+  filter: blur(0);
+}
+
+/* Card content on the front */
+.equipment-card-content {
+  padding: 15px;
+}
+
+.no-reservations-message {
+  font-size: 1.2em;
+  text-align: center;
+  color: var(--font-color);
+  margin: 20px;
+}
+
+/* if screen width is more than 768 pixels, display the nav menu as a horizontal bar and hide the collapse arrow*/
+@media (width > 768px) {
+  .page-main summary::-webkit-details-marker,
+  .page-nav summary::-webkit-details-marker {
+    display: none; /* Hide the arrows completely */
+  }
+  .page-nav {
+    display: flex;
+  }
+
+  .page-nav details {
+    display: block; /* Make sure the nav dropdown is fully visible */
+    position: relative;
+  }
+
+  .page-nav ul {
+    flex-direction: row; /* Horizontal alignment */
+    justify-content: space-around;
+  }
+
+  /* Hide the menu header when open on large screens */
+  .page-nav details[open] summary {
+    display: none;
+  }
+}
+
+/* For screens smaller than or equal to 768px: Vertical menu, arrows visible */
+@media (width <= 768px) {
+  .page-main summary::-webkit-details-marker,
+  .page-nav summary::-webkit-details-marker {
+    display: inline; /* Show the menu open arrows */
+    font-size: 15px;
+  }
+  .page-nav {
+    visibility: visible;
+    opacity: 1;
+  }
+  .page-nav details[open] summary {
+    display: block;
+  }
+  .page-nav summary [open] {
+    font-size: 1em;
+    padding: 8px 10px;
+  }
+  .wrapper {
+    height: 300px;
+  }
+  .wrapper .carousel {
+    width: 400px;
+  }
+  .wrapper .track {
+    width: calc(400px * 6);
+  }
+  .wrapper .carousel img {
+    height: 275px;
+  }
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-400px * 6 + 100vw));
+    }
+  }
+}
+
+/* For screens smaller than or equal to 600px: Adjustments for tighter layouts */
+@media (width <= 600px) {
+  /* Ensure arrows remain visible */
+  .page-main summary::-webkit-details-marker,
+  .page-nav summary::-webkit-details-marker {
+    font-size: 15px;
+    display: inline; /* Always show arrows on smaller screens */
+  }
+  .page-header {
+    max-height: 85px;
+  }
+  .masthead {
+    height: 60px;
+  }
+  #theme-toggle-button {
+    padding: 5px 5px;
+  }
+  .logo {
+    width: 55px;
+  }
+  .page-wrap {
+    grid-template-columns: 100%; /* Single column layout */
+    grid-template-rows: 85px auto 1fr min-content;
+  }
+  .page-wrap > * {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+  }
+  .wrapper {
+    height: 200px;
+  }
+  .wrapper .carousel {
+    width: 250px;
+  }
+  .wrapper .track {
+    width: calc(250px * 6);
+  }
+  .wrapper .carousel img {
+    height: 175px;
+  }
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-250px * 6 + 100vw));
+    }
+  }
+}
